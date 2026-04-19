@@ -1,0 +1,13 @@
+/* Additional styles for FontOverrideManager list items.
+   Core modal chrome (.cm-*) is shared with CharacterManager.css. */
+
+.fo-tags {
+  font-size: 10px;
+}
+
+.cm-form-note {
+  font-size: 11px;
+  color: var(--text-muted);
+  margin: 0 0 14px 0;
+  line-height: 1.5;
+}

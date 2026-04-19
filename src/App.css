@@ -1,0 +1,259 @@
+.app {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+  background: var(--bg);
+}
+
+.app-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 16px;
+  background: var(--bg-raised);
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+}
+
+.app-header h1 {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text);
+  letter-spacing: 0.5px;
+}
+
+.header-actions {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.export-btn,
+.refresh-btn {
+  padding: 6px 14px;
+  background: var(--bg-btn);
+  color: var(--text);
+  border: 1px solid var(--border-btn);
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 13px;
+  transition: background 0.15s;
+}
+
+.export-btn:hover,
+.refresh-btn:hover {
+  background: var(--bg-btn-hover);
+}
+
+.refresh-btn {
+  background: var(--bg);
+  border-color: var(--border-subtle);
+  color: var(--text-muted);
+}
+
+.refresh-btn:hover {
+  background: var(--bg-btn-hover);
+  color: var(--text);
+}
+
+.clear-btn {
+  padding: 6px 14px;
+  background: var(--bg);
+  color: var(--text-muted);
+  border: 1px solid var(--border-subtle);
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 13px;
+  transition: background 0.15s, color 0.15s, border-color 0.15s;
+}
+
+.clear-btn:hover {
+  background: #5a1a1a;
+  border-color: #8b2222;
+  color: #f0a0a0;
+}
+
+.sq-toggle-btn {
+  padding: 6px 14px;
+  background: var(--bg);
+  color: var(--text-muted);
+  border: 1px solid var(--border-subtle);
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 13px;
+  transition: background 0.15s, color 0.15s, border-color 0.15s;
+  font-family: 'Crimson Pro', Georgia, serif;
+}
+
+.sq-toggle-btn:hover {
+  background: var(--bg-btn-hover);
+  color: var(--text);
+}
+
+.sq-toggle-btn.active {
+  background: var(--bg-btn);
+  color: var(--text);
+  border-color: var(--border-btn);
+}
+
+.panes {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+  gap: 0;
+}
+
+.pane {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  overflow: hidden;
+  min-width: 0;
+}
+
+/* Left pane — editor */
+.pane-editor {
+  border-right: 1px solid var(--border);
+}
+
+/* Right pane — read-only .rpy output */
+.pane-preview {
+  background: var(--bg-preview);
+}
+
+.pane-label {
+  padding: 4px 12px;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--text-muted);
+  background: var(--bg-raised);
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+}
+
+/* TipTap editor wrapper */
+.tiptap-wrapper {
+  flex: 1;
+  overflow-y: auto;
+  padding: 0;
+  background: var(--bg);
+}
+
+.tiptap-wrapper .tiptap {
+  min-height: 100%;
+  padding: 16px;
+  outline: none;
+  font-family: 'Cascadia Code', 'Consolas', monospace;
+  font-size: 14px;
+  line-height: 1.8;
+  caret-color: var(--text);
+  color: var(--text);
+}
+
+.tiptap-wrapper .tiptap p {
+  margin-bottom: 4px;
+  padding: 2px 6px;
+  border-left: 3px solid transparent;
+  transition: border-color 0.1s;
+}
+
+.tiptap-wrapper .tiptap p[data-character] {
+  border-left-color: currentColor;
+}
+
+/* Comment paragraphs (no character assigned) — greyed, italic */
+.tiptap-wrapper .tiptap p:not([data-character]) {
+  color: var(--text-comment);
+  font-style: italic;
+}
+
+/* Commented-out styled paragraphs — keep character color but dim and prefix */
+.tiptap-wrapper .tiptap p[data-commented="true"]:not([data-character^="__"])::before {
+  content: '# ';
+  color: var(--text-comment);
+  font-style: normal;
+}
+.tiptap-wrapper .tiptap p[data-commented="true"] {
+  opacity: 0.6;
+}
+
+/* Commented-out command paragraphs — prepend # to their label */
+.tiptap-wrapper .tiptap p[data-character="__scene__"][data-commented="true"]::before {
+  content: '# scene ▸ ';
+}
+.tiptap-wrapper .tiptap p[data-character="__nvl_clear__"][data-commented="true"]::before {
+  content: '# nvl clear ▸ ';
+}
+.tiptap-wrapper .tiptap p[data-character="__text_insert__"][data-commented="true"]::before {
+  content: '# ' attr(data-insert-text) ' ▸ ';
+}
+
+/* Scene (clear-screen) paragraphs */
+.tiptap-wrapper .tiptap p[data-character="__scene__"] {
+  color: var(--color-scene);
+  font-style: italic;
+  border-left-color: var(--color-scene) !important;
+}
+.tiptap-wrapper .tiptap p[data-character="__scene__"]::before {
+  content: 'scene ▸ ';
+  font-size: 11px;
+  opacity: 0.6;
+}
+
+/* NVL clear paragraphs — same lilac as scene */
+.tiptap-wrapper .tiptap p[data-character="__nvl_clear__"] {
+  color: var(--color-scene);
+  font-style: italic;
+  border-left-color: var(--color-scene) !important;
+}
+.tiptap-wrapper .tiptap p[data-character="__nvl_clear__"]::before {
+  content: 'nvl clear ▸ ';
+  font-size: 11px;
+  opacity: 0.6;
+}
+
+/* User-defined text insert paragraphs — same lilac, shows baked-in text */
+.tiptap-wrapper .tiptap p[data-character="__text_insert__"] {
+  color: var(--color-scene);
+  font-style: italic;
+  border-left-color: var(--color-scene) !important;
+}
+.tiptap-wrapper .tiptap p[data-character="__text_insert__"]::before {
+  content: attr(data-insert-text) ' ▸ ';
+  font-size: 11px;
+  opacity: 0.6;
+}
+
+/* Font override spans — color is injected per-override via FontMark.renderHTML */
+
+/* Read-only .rpy output pane */
+.rpy-preview {
+  flex: 1;
+  margin: 0;
+  padding: 16px;
+  overflow-y: auto;
+  background: var(--bg-preview);
+  color: var(--text-preview);
+  font-family: 'Cascadia Code', 'Consolas', monospace;
+  font-size: 13px;
+  line-height: 1.7;
+  white-space: pre-wrap;
+  word-break: break-all;
+}
+
+/* Scrollbars */
+.tiptap-wrapper::-webkit-scrollbar,
+.rpy-preview::-webkit-scrollbar {
+  width: 6px;
+}
+.tiptap-wrapper::-webkit-scrollbar-track,
+.rpy-preview::-webkit-scrollbar-track {
+  background: var(--scrollbar-track);
+}
+.tiptap-wrapper::-webkit-scrollbar-thumb,
+.rpy-preview::-webkit-scrollbar-thumb {
+  background: var(--scrollbar-thumb);
+  border-radius: 3px;
+}

@@ -1,0 +1,47 @@
+:root {
+  --bg:             #ddd8d0;
+  --bg-raised:      #cac4bc;
+  --bg-toolbar:     #d0cbc3;
+  --bg-preview:     #e8e4dc;
+  --bg-btn:         #c8c4bc;
+  --bg-btn-hover:   #b8b4ac;
+  --bg-btn-active:  #8a8078;
+  --border:         #b0aca4;
+  --border-subtle:  #b8b4ac;
+  --border-btn:     #a8a49c;
+  --text:           #2d2d2d;
+  --text-muted:     #6a6058;
+  --text-preview:   #4a5058;
+  --text-comment:   #9a9088;
+  --text-btn-active:#ffffff;
+  --color-scene:    #7a6aaa;
+  --color-nvl-clear:#4a8a8a;
+  --color-comment:  #3a7a4a;
+  --color-taldane:  #8a6020;
+  --scrollbar-track:#cac4bc;
+  --scrollbar-thumb:#b0aca4;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+
+body {
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  font-size: 14px;
+}
+
+#app {
+  height: 100%;
+  width: 100%;
+}

@@ -1,0 +1,158 @@
+.toolbar {
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  background: var(--bg-toolbar);
+  border-bottom: 1px solid var(--border);
+  padding: 4px 8px;
+  gap: 4px;
+}
+
+.toolbar-section {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3px;
+  align-items: center;
+}
+
+/* Row 1: inline marks + font overrides (right-aligned) */
+.toolbar-inline {
+  padding-bottom: 4px;
+}
+
+.toolbar-fo-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3px;
+  align-items: center;
+  margin-left: auto;
+}
+
+/* Row 2: text inserts (border-bottom separates from chars) */
+.toolbar-inserts {
+  border-bottom: 1px solid var(--border-subtle);
+  padding-bottom: 4px;
+}
+
+/* B / I / U / S buttons */
+.toolbar-btn {
+  padding: 3px 10px;
+  background: var(--bg-btn);
+  color: var(--text);
+  border: 1px solid var(--border-btn);
+  border-radius: 3px;
+  cursor: pointer;
+  font-size: 13px;
+  transition: background 0.1s, color 0.1s;
+  min-width: 28px;
+}
+
+.toolbar-btn:hover {
+  background: var(--bg-btn-hover);
+}
+
+.toolbar-btn.active {
+  background: var(--bg-btn-active);
+  color: var(--text-btn-active);
+  border-color: var(--border);
+}
+
+/* Character buttons (row 3) */
+.char-btn {
+  padding: 2px 7px;
+  background: var(--bg-btn);
+  color: var(--char-color, var(--text));
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  border-radius: 3px;
+  cursor: pointer;
+  font-size: 11px;
+  font-family: 'Cascadia Code', 'Consolas', monospace;
+  transition: background 0.1s, opacity 0.1s;
+  white-space: nowrap;
+  opacity: 0.8;
+}
+
+.char-btn:hover {
+  background: var(--bg-btn-hover);
+  opacity: 1;
+}
+
+.comment-char-btn {
+  --char-color: var(--color-comment);
+  font-weight: 600;
+  border-color: #a0c0a8;
+}
+
+.char-btn.active {
+  background: var(--bg-btn-active);
+  border-color: var(--char-color, var(--border));
+  opacity: 1;
+  box-shadow: 0 0 0 1px var(--char-color, var(--border)) inset;
+  color: var(--text-btn-active);
+}
+
+/* Font override buttons (row 1, right side) */
+.fo-btn {
+  padding: 2px 7px;
+  background: var(--bg-btn);
+  color: var(--fo-color, var(--text));
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  border-radius: 3px;
+  cursor: pointer;
+  font-size: 11px;
+  transition: background 0.1s, opacity 0.1s;
+  white-space: nowrap;
+  opacity: 0.8;
+}
+
+.fo-btn:hover {
+  background: var(--bg-btn-hover);
+  opacity: 1;
+}
+
+.fo-btn.active {
+  background: var(--bg-btn-active);
+  border-color: var(--fo-color, var(--border));
+  opacity: 1;
+  box-shadow: 0 0 0 1px var(--fo-color, var(--border)) inset;
+  color: var(--text-btn-active);
+}
+
+/* Text insert buttons (row 2) — all use the scene lilac */
+.insert-btn {
+  padding: 2px 7px;
+  background: var(--bg-btn);
+  color: var(--color-scene);
+  border: 1px solid #c0b8d8;
+  border-radius: 3px;
+  cursor: pointer;
+  font-size: 11px;
+  font-family: 'Cascadia Code', 'Consolas', monospace;
+  font-weight: 600;
+  transition: background 0.1s, opacity 0.1s;
+  white-space: nowrap;
+  opacity: 0.8;
+}
+
+.insert-btn:hover {
+  background: var(--bg-btn-hover);
+  opacity: 1;
+}
+
+/* Shared manage button style (⚙ font overrides / ⚙ text inserts / ⚙ chars) */
+.manage-btn {
+  padding: 2px 8px;
+  background: transparent;
+  color: var(--text-muted);
+  border: 1px solid var(--border-subtle);
+  border-radius: 3px;
+  cursor: pointer;
+  font-size: 10px;
+  transition: background 0.1s, color 0.1s;
+  white-space: nowrap;
+}
+
+.manage-btn:hover {
+  background: var(--bg-btn);
+  color: var(--text);
+}

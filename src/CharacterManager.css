@@ -1,0 +1,235 @@
+.cm-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.cm-modal {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  width: 560px;
+  max-width: 95vw;
+  max-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.25);
+  overflow: hidden;
+}
+
+.cm-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 16px;
+  background: var(--bg-raised);
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+}
+
+.cm-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text);
+  letter-spacing: 0.5px;
+}
+
+.cm-close {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--text-muted);
+  font-size: 14px;
+  padding: 2px 4px;
+  line-height: 1;
+}
+.cm-close:hover { color: var(--text); }
+
+.cm-bar {
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--border-subtle);
+  flex-shrink: 0;
+}
+
+.cm-add-btn {
+  padding: 4px 12px;
+  background: var(--bg-btn);
+  border: 1px solid var(--border-btn);
+  border-radius: 3px;
+  cursor: pointer;
+  font-size: 12px;
+  color: var(--text);
+}
+.cm-add-btn:hover { background: var(--bg-btn-hover); }
+
+.cm-list {
+  overflow-y: auto;
+  flex: 1;
+  padding: 4px 0;
+}
+
+.cm-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 12px;
+  border-bottom: 1px solid var(--border-subtle);
+}
+.cm-row:last-child { border-bottom: none; }
+
+.cm-swatch {
+  width: 14px;
+  height: 14px;
+  border-radius: 2px;
+  flex-shrink: 0;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+}
+
+.cm-display-name {
+  font-size: 13px;
+  color: var(--text);
+  min-width: 90px;
+}
+
+.cm-label {
+  font-family: 'Cascadia Code', 'Consolas', monospace;
+  font-size: 11px;
+  color: var(--text-muted);
+  flex: 1;
+}
+
+.cm-shortcut {
+  font-family: 'Cascadia Code', 'Consolas', monospace;
+  font-size: 10px;
+  color: var(--text-muted);
+  background: var(--bg-raised);
+  border: 1px solid var(--border-subtle);
+  border-radius: 3px;
+  padding: 1px 5px;
+  flex-shrink: 0;
+}
+
+.cm-row-btn {
+  padding: 2px 8px;
+  background: var(--bg-btn);
+  border: 1px solid var(--border-btn);
+  border-radius: 3px;
+  cursor: pointer;
+  font-size: 11px;
+  color: var(--text);
+  flex-shrink: 0;
+}
+.cm-row-btn:hover { background: var(--bg-btn-hover); }
+
+.cm-delete-btn:hover {
+  background: #c0a0a0;
+  border-color: #a08080;
+  color: #5a0000;
+}
+
+/* Form */
+.cm-form {
+  padding: 16px;
+  overflow-y: auto;
+  flex: 1;
+}
+
+.cm-form-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 14px;
+}
+
+.cm-field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 12px;
+}
+
+.cm-field > span {
+  font-size: 11px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.cm-field small {
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+.cm-field input[type="text"],
+.cm-field select {
+  padding: 5px 8px;
+  background: var(--bg-raised);
+  border: 1px solid var(--border-btn);
+  border-radius: 3px;
+  font-size: 13px;
+  color: var(--text);
+  font-family: inherit;
+}
+
+.cm-field input[type="text"]:focus,
+.cm-field select:focus {
+  outline: 1px solid var(--border);
+}
+
+.cm-field input[disabled] {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.cm-color-row {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.cm-color-row input[type="color"] {
+  width: 40px;
+  height: 30px;
+  padding: 1px;
+  border: 1px solid var(--border-btn);
+  border-radius: 3px;
+  background: var(--bg-raised);
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.cm-color-text {
+  flex: 1;
+}
+
+.cm-form-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+.cm-save-btn {
+  padding: 5px 16px;
+  background: var(--bg-btn-active);
+  color: var(--text-btn-active);
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  cursor: pointer;
+  font-size: 13px;
+}
+.cm-save-btn:hover { opacity: 0.85; }
+
+.cm-cancel-btn {
+  padding: 5px 12px;
+  background: var(--bg-btn);
+  border: 1px solid var(--border-btn);
+  border-radius: 3px;
+  cursor: pointer;
+  font-size: 13px;
+  color: var(--text);
+}
+.cm-cancel-btn:hover { background: var(--bg-btn-hover); }
