@@ -16,24 +16,7 @@ export interface FontOverrideDef {
 
 const STORAGE_KEY = 'prose-to-renpy-font-overrides'
 
-export const DEFAULT_FONT_OVERRIDES: FontOverrideDef[] = [
-  {
-    id: 'raleway',
-    displayName: 'Baseline',
-    openTag: '{raleway}',
-    closeTag: '{/raleway}',
-    color: '#2a4a7a',
-    shortcut: '',
-  },
-  {
-    id: 'fonts/CrimsonPro-Regular.ttf',
-    displayName: 'Taldane',
-    openTag: '{font=fonts/CrimsonPro-Regular.ttf}',
-    closeTag: '{/font}',
-    color: '#8a6020',
-    shortcut: '',
-  },
-]
+export const DEFAULT_FONT_OVERRIDES: FontOverrideDef[] = []
 
 // Mutable map used by FontMark's renderHTML and export.ts — updated whenever the
 // override list changes. The same pattern as _charMap in characters.ts.
