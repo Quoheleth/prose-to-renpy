@@ -2,7 +2,6 @@ export interface CharacterDef {
   label: string       // rpy label — lowercase, underscores, no spaces
   displayName: string // button text
   color: string       // hex color
-  font: string        // font file path for Taldane button, e.g. 'fonts/CrimsonPro-Regular.ttf'
   shortcut: string    // keyboard shortcut string, e.g. 'ctrl+k', '' = none
 }
 

@@ -2,15 +2,8 @@ import { useState } from 'react'
 import type { CharacterDef } from './characters'
 import './CharacterManager.css'
 
-const FONT_OPTIONS = [
-  { label: 'Crimson Pro Regular', value: 'fonts/CrimsonPro-Regular.ttf' },
-  { label: 'Crimson Pro Medium',  value: 'fonts/CrimsonPro-Medium.ttf'  },
-  { label: 'Raleway',             value: 'raleway'                       },
-]
-
 const EMPTY_FORM: CharacterDef = {
-  label: '', displayName: '', color: '#2d2d2d',
-  font: 'fonts/CrimsonPro-Regular.ttf', shortcut: '',
+  label: '', displayName: '', color: '#2d2d2d', shortcut: '',
 }
 
 interface Props {
@@ -149,18 +142,6 @@ export default function CharacterManager({ characters, onChange, onClose }: Prop
                 />
               </div>
               <small>RTE display only — character colors still need to be set in Ren'Py.</small>
-            </label>
-
-            <label className="cm-field">
-              <span>Font</span>
-              <select
-                value={form.font}
-                onChange={e => setField('font', e.target.value)}
-              >
-                {FONT_OPTIONS.map(opt => (
-                  <option key={opt.value} value={opt.value}>{opt.label}</option>
-                ))}
-              </select>
             </label>
 
             <label className="cm-field">
