@@ -10,6 +10,7 @@ function escapeText(text: string): string {
     .replace(/\\/g, '\\\\')      // backslashes first
     .replace(/\{/g, '{{')        // Ren'Py tag escape: { → {{
     .replace(/\}/g, '}}')        // Ren'Py tag escape: } → }}
+    .replace(/\[/g, '[[')        // Ren'Py interpolation escape: [ → [[
     .replace(/%/g, '%%')         // Python %-format escape: % → %%
     // Note: straight " and ' are NOT escaped here — normalizeQuotes converts
     // them to typographic curly quotes before the line is emitted, so no

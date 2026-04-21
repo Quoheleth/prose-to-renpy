@@ -123,6 +123,12 @@ describe('escaping', () => {
     ))).toBe('dnarrator "(cost: {{5gp}})"')
   })
 
+  it('escapes [ as [[ for Ren\'Py interpolation', () => {
+    expect(exportToRpy(doc(
+      para('dnarrator', text('roll [dice]')),
+    ))).toBe('dnarrator "roll [[dice]"')
+  })
+
   it('escapes % as %% for Python %-formatting', () => {
     expect(exportToRpy(doc(
       para('keltham', text('25% of the time')),
