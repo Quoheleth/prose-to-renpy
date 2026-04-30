@@ -120,11 +120,12 @@ export default function TextInsertManager({ textInserts, onChange, onClose }: Pr
 
             <label className="cm-field">
               <span>Text</span>
-              <input
-                type="text"
+              <textarea
+                rows={3}
                 value={form.text}
                 onChange={e => setField('text', e.target.value)}
-                placeholder="verbatim Ren'Py text to insert"
+                placeholder={"verbatim Ren'Py text to insert\n(one line per output line)"}
+                style={{ resize: 'vertical', fontFamily: 'monospace', fontSize: '12px' }}
               />
             </label>
 

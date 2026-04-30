@@ -45,6 +45,14 @@ export const CharacterMark = Extension.create({
               return { 'data-insert-text': attrs.insertText }
             },
           },
+          insertDisplay: {
+            default: null,
+            parseHTML: el => el.getAttribute('data-insert-display') ?? null,
+            renderHTML: attrs => {
+              if (!attrs.insertDisplay) return {}
+              return { 'data-insert-display': attrs.insertDisplay }
+            },
+          },
           commented: {
             default: false,
             parseHTML: el => el.getAttribute('data-commented') === 'true',

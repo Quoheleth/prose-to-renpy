@@ -29,6 +29,14 @@ import FontOverrideManager from './FontOverrideManager'
 import TextInsertManager from './TextInsertManager'
 import './App.css'
 
+// Build a single-line display label for a text insert: newlines become ' / ',
+// truncated at 60 characters with an ellipsis so long/multi-line inserts stay
+// readable in the editor's ::before pseudo-element.
+function makeInsertDisplay(text: string): string {
+  const flat = text.replace(/\n/g, ' / ')
+  return flat.length > 60 ? flat.slice(0, 60) + '…' : flat
+}
+
 function matchesShortcut(e: KeyboardEvent, shortcut: string): boolean {
   const parts = shortcut.toLowerCase().split('+')
   const key = parts[parts.length - 1]
@@ -205,6 +213,7 @@ export default function App() {
           const para = state.schema.nodes.paragraph.createAndFill({
             character: TEXT_INSERT_COMMAND,
             insertText: ti.text,
+            insertDisplay: makeInsertDisplay(ti.text),
           })!
           tr.insert(insertPos, para)
         }

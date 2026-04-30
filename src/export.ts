@@ -52,10 +52,15 @@ function paragraphToRpy(node: JSONContent, smartQuotes: boolean): string | null 
   if (character === NVL_CLEAR_COMMAND) return node.attrs?.commented ? '# nvl clear' : 'nvl clear'
 
   // User-defined text insert paragraphs: emit the baked-in insert text verbatim.
+  // Multi-line text (newlines in insertText) is preserved — exportToRpyLines
+  // splits the result into individual RpyLine entries.
   if (character === TEXT_INSERT_COMMAND) {
     const text = (node.attrs?.insertText ?? '').trim()
     if (!text) return null
-    return node.attrs?.commented ? `# ${text}` : text
+    if (node.attrs?.commented) {
+      return text.split('\n').map((line: string) => `# ${line}`).join('\n')
+    }
+    return text
   }
 
   // Comment paragraphs (null) and character paragraphs both go through the full
@@ -146,6 +151,13 @@ export function exportToRpyLines(doc: JSONContent, opts?: { smartQuotes?: boolea
       character !== NVL_CLEAR_COMMAND &&
       character !== TEXT_INSERT_COMMAND &&
       !node.attrs?.commented
+    // Multi-line text inserts expand into one RpyLine per line.
+    if (character === TEXT_INSERT_COMMAND && text.includes('\n')) {
+      for (const line of text.split('\n')) {
+        lines.push({ text: line })
+      }
+      continue
+    }
     lines.push({ text, charLabel: isDialogue ? character : undefined })
   }
   return lines
