@@ -62,6 +62,13 @@ export default function TextInsertManager({ textInserts, onChange, onClose }: Pr
     onChange(textInserts.filter(t => t.name !== ti.name))
   }
 
+  function move(index: number, delta: -1 | 1) {
+    const next = [...textInserts]
+    const target = index + delta
+    ;[next[index], next[target]] = [next[target], next[index]]
+    onChange(next)
+  }
+
   function handleBackdropClick(e: React.MouseEvent) {
     if (e.target === e.currentTarget) onClose()
   }
@@ -85,7 +92,7 @@ export default function TextInsertManager({ textInserts, onChange, onClose }: Pr
               <button className="cm-add-btn" onClick={openAdd}>+ Add Insert</button>
             </div>
             <div className="cm-list">
-              {textInserts.map(ti => (
+              {textInserts.map((ti, i) => (
                 <div key={ti.name} className="cm-row">
                   <span className="cm-display-name">{ti.name}</span>
                   <span className="cm-label">{ti.text}</span>
@@ -95,6 +102,8 @@ export default function TextInsertManager({ textInserts, onChange, onClose }: Pr
                   {ti.shortcut && (
                     <span className="cm-shortcut">{ti.shortcut}</span>
                   )}
+                  <button className="cm-row-btn cm-move-btn" onClick={() => move(i, -1)} disabled={i === 0}>↑</button>
+                  <button className="cm-row-btn cm-move-btn" onClick={() => move(i, 1)} disabled={i === textInserts.length - 1}>↓</button>
                   <button className="cm-row-btn" onClick={() => openEdit(ti)}>Edit</button>
                   <button
                     className="cm-row-btn cm-delete-btn"

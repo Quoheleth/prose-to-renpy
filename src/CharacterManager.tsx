@@ -57,6 +57,13 @@ export default function CharacterManager({ characters, onChange, onClose }: Prop
     onChange(characters.filter(c => c.label !== char.label))
   }
 
+  function move(index: number, delta: -1 | 1) {
+    const next = [...characters]
+    const target = index + delta
+    ;[next[index], next[target]] = [next[target], next[index]]
+    onChange(next)
+  }
+
   function handleBackdropClick(e: React.MouseEvent) {
     if (e.target === e.currentTarget) onClose()
   }
@@ -80,7 +87,7 @@ export default function CharacterManager({ characters, onChange, onClose }: Prop
               <button className="cm-add-btn" onClick={openAdd}>+ Add Character</button>
             </div>
             <div className="cm-list">
-              {characters.map(char => (
+              {characters.map((char, i) => (
                 <div key={char.label} className="cm-row">
                   <span className="cm-swatch" style={{ background: char.color }} />
                   <span className="cm-display-name">{char.displayName}</span>
@@ -88,6 +95,8 @@ export default function CharacterManager({ characters, onChange, onClose }: Prop
                   {char.shortcut && (
                     <span className="cm-shortcut">{char.shortcut}</span>
                   )}
+                  <button className="cm-row-btn cm-move-btn" onClick={() => move(i, -1)} disabled={i === 0}>↑</button>
+                  <button className="cm-row-btn cm-move-btn" onClick={() => move(i, 1)} disabled={i === characters.length - 1}>↓</button>
                   <button className="cm-row-btn" onClick={() => openEdit(char)}>Edit</button>
                   <button
                     className="cm-row-btn cm-delete-btn"

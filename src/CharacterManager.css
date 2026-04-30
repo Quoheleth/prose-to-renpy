@@ -131,6 +131,14 @@
   color: #5a0000;
 }
 
+.cm-move-btn {
+  padding: 2px 5px;
+}
+.cm-move-btn:disabled {
+  opacity: 0.25;
+  cursor: default;
+}
+
 /* Form */
 .cm-form {
   padding: 16px;

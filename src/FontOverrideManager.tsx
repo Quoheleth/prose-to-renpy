@@ -71,6 +71,13 @@ export default function FontOverrideManager({ fontOverrides, onChange, onClose }
     onChange(fontOverrides.filter(f => f.id !== fo.id))
   }
 
+  function move(index: number, delta: -1 | 1) {
+    const next = [...fontOverrides]
+    const target = index + delta
+    ;[next[index], next[target]] = [next[target], next[index]]
+    onChange(next)
+  }
+
   function handleBackdropClick(e: React.MouseEvent) {
     if (e.target === e.currentTarget) onClose()
   }
@@ -94,7 +101,7 @@ export default function FontOverrideManager({ fontOverrides, onChange, onClose }
               <button className="cm-add-btn" onClick={openAdd}>+ Add Override</button>
             </div>
             <div className="cm-list">
-              {fontOverrides.map(fo => (
+              {fontOverrides.map((fo, i) => (
                 <div key={fo.id} className="cm-row">
                   <span className="cm-swatch" style={{ background: fo.color }} />
                   <span className="cm-display-name">{fo.displayName}</span>
@@ -102,6 +109,8 @@ export default function FontOverrideManager({ fontOverrides, onChange, onClose }
                   {fo.shortcut && (
                     <span className="cm-shortcut">{fo.shortcut}</span>
                   )}
+                  <button className="cm-row-btn cm-move-btn" onClick={() => move(i, -1)} disabled={i === 0}>↑</button>
+                  <button className="cm-row-btn cm-move-btn" onClick={() => move(i, 1)} disabled={i === fontOverrides.length - 1}>↓</button>
                   <button className="cm-row-btn" onClick={() => openEdit(fo)}>Edit</button>
                   <button
                     className="cm-row-btn cm-delete-btn"
