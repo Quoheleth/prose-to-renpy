@@ -57,6 +57,23 @@
   border-color: var(--border);
 }
 
+/* Character row — scrolls after 3 wrapped rows */
+.toolbar-chars {
+  max-height: 97px;
+  overflow-y: auto;
+  align-content: flex-start;
+}
+.toolbar-chars::-webkit-scrollbar {
+  width: 6px;
+}
+.toolbar-chars::-webkit-scrollbar-track {
+  background: var(--scrollbar-track);
+}
+.toolbar-chars::-webkit-scrollbar-thumb {
+  background: var(--scrollbar-thumb);
+  border-radius: 3px;
+}
+
 /* Character buttons (row 3) */
 .char-btn {
   padding: 2px 7px;
@@ -81,6 +98,12 @@
   --char-color: var(--color-comment);
   font-weight: 600;
   border-color: #a0c0a8;
+}
+
+.raw-char-btn {
+  --char-color: var(--color-raw);
+  font-weight: 600;
+  border-color: #88aac0;
 }
 
 .char-btn.active {

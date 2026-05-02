@@ -61,6 +61,14 @@ export const CharacterMark = Extension.create({
               return { 'data-commented': 'true' }
             },
           },
+          raw: {
+            default: false,
+            parseHTML: el => el.getAttribute('data-raw') === 'true',
+            renderHTML: attrs => {
+              if (!attrs.raw) return {}
+              return { 'data-raw': 'true' }
+            },
+          },
         },
       },
     ]

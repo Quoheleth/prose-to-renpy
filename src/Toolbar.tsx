@@ -11,6 +11,7 @@ interface Props {
   fontOverrides: FontOverrideDef[]
   textInserts: TextInsertDef[]
   onSetComment: () => void
+  onSetRaw: () => void
   onInsertScene: () => void
   onInsertNvlClear: () => void
   onInsertTextInsert: (ti: TextInsertDef) => void
@@ -25,6 +26,7 @@ export default function Toolbar({
   fontOverrides,
   textInserts,
   onSetComment,
+  onSetRaw,
   onInsertScene,
   onInsertNvlClear,
   onInsertTextInsert,
@@ -32,7 +34,7 @@ export default function Toolbar({
   onManageFontOverrides,
   onManageTextInserts,
 }: Props) {
-  const { activeChar, isCommented, isBold, isItalic, isUnderline, isStrike, activeFontOverrideId } = useEditorState({
+  const { activeChar, isCommented, isRaw, isBold, isItalic, isUnderline, isStrike, activeFontOverrideId } = useEditorState({
     editor,
     selector: snap => {
       const foMark = snap.editor.state.selection.$from
@@ -42,6 +44,7 @@ export default function Toolbar({
       return {
         activeChar:           (paraAttrs.character ?? null) as string | null,
         isCommented:          (paraAttrs.commented ?? false) as boolean,
+        isRaw:                (paraAttrs.raw ?? false) as boolean,
         isBold:               snap.editor.isActive('bold'),
         isItalic:             snap.editor.isActive('italic'),
         isUnderline:          snap.editor.isActive('underline'),
@@ -175,6 +178,13 @@ export default function Toolbar({
           title="Comment (Ctrl+/)"
         >
           #
+        </button>
+        <button
+          className={`char-btn raw-char-btn ${isRaw ? 'active' : ''}`}
+          onClick={onSetRaw}
+          title="Raw Ren'Py — emitted verbatim, no escaping or processing"
+        >
+          raw
         </button>
         {characters.map(char => (
           <button

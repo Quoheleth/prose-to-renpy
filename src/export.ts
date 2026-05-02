@@ -63,6 +63,17 @@ function paragraphToRpy(node: JSONContent, smartQuotes: boolean): string | null 
     return text
   }
 
+  // Raw paragraphs: emit text content verbatim with no escaping or processing.
+  if (node.attrs?.raw) {
+    const text = content
+      .filter((n: JSONContent) => n.type === 'text')
+      .map((n: JSONContent) => n.text ?? '')
+      .join('')
+      .trimEnd()
+    if (!text.trim()) return null
+    return text
+  }
+
   // Comment paragraphs (null) and character paragraphs both go through the full
   // inline processing pipeline below — font spans, marks, escaping, smart quotes.
   // Comments emit as `# text` without quotes; characters emit as `label "text"`.

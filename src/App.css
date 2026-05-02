@@ -131,6 +131,15 @@
   background: var(--bg-raised);
   border-bottom: 1px solid var(--border);
   flex-shrink: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.word-count {
+  text-transform: none;
+  letter-spacing: 0;
+  opacity: 0.7;
 }
 
 /* TipTap editor wrapper */
@@ -224,6 +233,20 @@
   content: attr(data-insert-display) ' ▸ ';
   font-size: 11px;
   opacity: 0.6;
+}
+
+/* Raw paragraphs — verbatim Ren'Py, no processing */
+.tiptap-wrapper .tiptap p[data-raw="true"] {
+  color: var(--color-raw);
+  font-family: monospace;
+  font-style: normal;
+  border-left-color: var(--color-raw) !important;
+}
+.tiptap-wrapper .tiptap p[data-raw="true"]::before {
+  content: 'raw ▸ ';
+  font-size: 11px;
+  opacity: 0.6;
+  font-family: inherit;
 }
 
 /* Font override spans — color is injected per-override via FontMark.renderHTML */

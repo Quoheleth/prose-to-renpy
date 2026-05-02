@@ -8,6 +8,7 @@ import Code from '@tiptap/extension-code'
 import { TextStyle } from '@tiptap/extension-text-style'
 import Underline from '@tiptap/extension-underline'
 import { exportToRpy, exportToRpyLines, type RpyLine } from './export'
+import type { JSONContent } from '@tiptap/core'
 import { charColor } from './characters'
 import { CharacterMark, SCENE_COMMAND, NVL_CLEAR_COMMAND, TEXT_INSERT_COMMAND } from './extensions/CharacterMark'
 import { FontMark } from './extensions/FontMark'
@@ -73,8 +74,24 @@ const ItalicNoShortcuts = Italic.extend({ addInputRules() { return [] } })
 const StrikeNoShortcuts = Strike.extend({ addInputRules() { return [] } })
 const CodeNoShortcuts = Code.extend({ addInputRules() { return [] } })
 
+function countWords(doc: JSONContent): number {
+  let total = 0
+  for (const node of doc.content ?? []) {
+    const ch = node.attrs?.character
+    if (ch === SCENE_COMMAND || ch === NVL_CLEAR_COMMAND || ch === TEXT_INSERT_COMMAND) continue
+    if (node.attrs?.raw) continue
+    const text = (node.content ?? [])
+      .map((n: JSONContent) => n.text ?? '')
+      .join('')
+      .trim()
+    if (text) total += text.split(/\s+/).length
+  }
+  return total
+}
+
 export default function App() {
   const [previewLines, setPreviewLines] = useState<RpyLine[]>([])
+  const [wordCount, setWordCount] = useState(0)
   const [showCharManager, setShowCharManager] = useState(false)
   const [showFontOverrideManager, setShowFontOverrideManager] = useState(false)
   const [showTextInsertManager, setShowTextInsertManager] = useState(false)
@@ -139,7 +156,11 @@ export default function App() {
     ],
     content: (() => {
       const saved = localStorage.getItem(EDITOR_STORAGE_KEY)
-      if (saved) { try { return JSON.parse(saved) } catch { /* fall through */ } }
+      if (saved) { try {
+        const json = JSON.parse(saved)
+        setTimeout(() => setWordCount(countWords(json)), 0)
+        return json
+      } catch { /* fall through */ } }
       return '<p></p>'
     })(),
     editorProps: {
@@ -163,9 +184,12 @@ export default function App() {
       },
     },
     onUpdate({ editor }) {
+      const json = editor.getJSON()
+      setWordCount(countWords(json))
+
       if (debounceRef.current) clearTimeout(debounceRef.current)
       debounceRef.current = setTimeout(() => {
-        setPreviewLines(exportToRpyLines(editor.getJSON(), { smartQuotes: smartQuotesRef.current }))
+        setPreviewLines(exportToRpyLines(json, { smartQuotes: smartQuotesRef.current }))
       }, 300)
 
       if (autosaveRef.current) clearTimeout(autosaveRef.current)
@@ -298,6 +322,18 @@ export default function App() {
     }
   }
 
+  function setRawMode() {
+    const ed = editorRef.current
+    if (!ed) return
+    const attrs = ed.getAttributes('paragraph')
+    const isRaw: boolean = attrs.raw ?? false
+    if (isRaw) {
+      ;(ed.chain().focus() as any).updateAttributes('paragraph', { raw: false }).run()
+    } else {
+      ;(ed.chain().focus() as any).updateAttributes('paragraph', { raw: true, character: null, commented: false }).run()
+    }
+  }
+
   useEffect(() => {
     function onKeyDown(e: KeyboardEvent) {
       // Ctrl+/ — toggle comment
@@ -393,7 +429,7 @@ export default function App() {
       </header>
       <div className="panes">
         <div className="pane pane-editor">
-          <div className="pane-label">Script</div>
+          <div className="pane-label">Script<span className="word-count">{wordCount.toLocaleString()} words</span></div>
           {editor && (
             <Toolbar
               editor={editor}
@@ -401,6 +437,7 @@ export default function App() {
               fontOverrides={fontOverrides}
               textInserts={textInserts}
               onSetComment={setCommentMode}
+              onSetRaw={setRawMode}
               onInsertScene={insertScene}
               onInsertNvlClear={insertNvlClear}
               onInsertTextInsert={insertTextInsert}
